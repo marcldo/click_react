@@ -4,15 +4,28 @@ import Title from "./components/Title";
 import friends from "./friends.json"
 import FriendCard from "./components/FriendCard";
 
-function App() {
-  return (
-    <Wrapper>
-      <Title>Friends List</Title>
-      {friends.map(friends =>
-        <FriendCard {...friends} />
-      )}
-    </Wrapper>
-  );
+class App extends React.Component {
+
+  state = {
+    friends
+  };
+
+  imageSelected(id) {
+    console.log("clicked " + id);
+  }
+
+  render() {
+    return (
+      <Wrapper>
+        <Title>Friends List</Title>
+        {
+          friends.map(friend =>
+            <FriendCard key={friend.id} handleClick={() => this.imageSelected(friend.id)} {...friend} />
+          )
+        }
+      </Wrapper >
+    );
+  };
 }
 
 export default App;
