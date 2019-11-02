@@ -7,11 +7,29 @@ import FriendCard from "./components/FriendCard";
 class App extends React.Component {
 
   state = {
-    friends
+    shuffledFriends: [],
+    clickedId: null
   };
 
+  componentDidMount() {
+    this.shuffle(friends);
+  }
+
   imageSelected(id) {
-    console.log("clicked " + id);
+
+
+    if (id === this.state.clickedId) {
+      console.log("whoa")
+    }
+
+    this.setState({ clickedId: id })
+    this.shuffle(friends);
+
+
+  }
+
+  shuffle(friends) {
+    this.setState({ shuffledFriends: friends.sort(() => Math.random() - 0.5) });
   }
 
   render() {
@@ -19,7 +37,7 @@ class App extends React.Component {
       <Wrapper>
         <Title>Friends List</Title>
         {
-          friends.map(friend =>
+          this.state.shuffledFriends.map(friend =>
             <FriendCard key={friend.id} handleClick={() => this.imageSelected(friend.id)} {...friend} />
           )
         }
