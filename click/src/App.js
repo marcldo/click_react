@@ -8,7 +8,8 @@ class App extends React.Component {
 
   state = {
     shuffledFriends: [],
-    clickedId: null
+    clickedId: null,
+    title: "Click an image"
   };
 
   componentDidMount() {
@@ -19,7 +20,10 @@ class App extends React.Component {
 
 
     if (id === this.state.clickedId) {
-      console.log("whoa")
+      console.log("whoa");
+      this.setState({ title: "You Guessed Wrong" });
+    } else {
+      this.setState({ title: "You Guessed Right!" });
     }
 
     this.setState({ clickedId: id })
@@ -35,7 +39,7 @@ class App extends React.Component {
   render() {
     return (
       <Wrapper>
-        <Title>Friends List</Title>
+        <Title>{this.state.title}</Title>
         {
           this.state.shuffledFriends.map(friend =>
             <FriendCard key={friend.id} handleClick={() => this.imageSelected(friend.id)} {...friend} />
